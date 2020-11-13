@@ -57,5 +57,5 @@ app.use('/exam', examRouter);
 
 
 // listen on port
-const port = 5000;
+const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server is live on port ${port}`));
