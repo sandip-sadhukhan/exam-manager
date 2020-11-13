@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const ObjectsToCsv = require('objects-to-csv');
 const fs = require('fs');
+const path = require('path');
 const { studentOnly, teacherOnly } = require('../utils/verify');
 const { examCreateValidation, addQuestionValidation, examSubmitValidation } = require('../utils/validate');
 
@@ -357,11 +358,12 @@ router.get('/:id/download-csv', teacherOnly, async(req, res) => {
     const csv = new ObjectsToCsv(studentData);
     const fileName = exam.examName + '.csv';
     // Save to file:
-    await csv.toDisk(`./public_csv/${fileName}`);
+    console.log(__dirname)
+    await csv.toDisk(path.resolve(__dirname,'../', 'public_csv', fileName));
 
     // download the file
-    return res.download(`./public_csv/${fileName}`, () => {
-        fs.unlinkSync(`./public_csv/${fileName}`)
+    return res.download(path.resolve(__dirname,'../', 'public_csv', fileName), () => {
+        fs.unlinkSync(path.resolve(__dirname,'../', 'public_csv', fileName))
     })
 
     // redirect
