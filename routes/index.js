@@ -17,8 +17,14 @@ router.get('/about', (req, res) => {
 
 // Dashboard - GET - need to login first
 router.get('/dashboard', teacherOnly, async(req, res) => {
-    const exams = await Exam.find({}).sort('-date');
-    res.render('exam/dashboard', {exams});
+    let exams = req.user.exams;
+    // console.log(exams)
+    const examsArr = []
+    for (let i = 0; i < exams.length; i++) {
+        const exam = await Exam.findById(exams[i]);
+        examsArr.push(exam);
+    }
+    res.render('exam/dashboard', {exams: examsArr});
 })
 
 // Error page
