@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Manager</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://bootswatch.com/4/united/bootstrap.min.css">
+</head>
+
+<body style="background-color: #e9ecef;">
+
+    <!-- Navber Section -->
+    <%- include('../partials/_navber') %> 
+    <!-- Navber End -->
+
+    <!-- Dashboard Section -->
+    <div class="container my-4">
+        <div class="d-flex justify-content-around"></div>
+        <h3 class="my-2 display-4">Exams</h3>
+        <a href="/exam/create" class="btn btn-info my-3">Create an exam</a>
+        <div class="row">
+            <% if(exams.length===0){%>
+                <div class="alert alert-danger">No Exams are created by you.</div>
+            <% }else {%>
+                <% exams.forEach((exam) => { %>
+                    <div class="col-md-4 col-sm-6 col-12 my-2">
+                        <div class="card card-body <%= exam.isOpen?'bg-success':'bg-danger'%> text-white text-center">
+                            <h3><%= exam.examName %></h3>
+                            <strong class="mb-0">Date - <%= exam.date.toLocaleString("en-IN", {dateStyle:"short"}) %></strong>
+                            <p><%= exam.examDescription%></p>
+                            <div class="divider"></div>
+                            <div class="d-flex justify-content-around">
+                                <a href="/exam/<%= exam._id %>/show" class="btn btn-primary">View Exam</a>
+                                <% if(exam.isOpen) {%>
+                                <a href="/exam/<%= exam._id %>/close" class="btn btn-warning">Close Exam</a>
+                                <% }else { %>
+                                    <a href="/exam/<%= exam._id %>/open" class="btn btn-success">Open Exam</a>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Dashboard Section End -->
+
+
+
+    <!-- JavaScript Codes -->
+    <!-- Bootstrap Dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

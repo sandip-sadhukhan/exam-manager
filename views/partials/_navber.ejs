@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="/">Exam Manager</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</span></a>
+                </li>
+                <% if (user) { %>
+                        
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Welcome, <%= user.name %>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <% if (user.isTeacher) {%>
+                        <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                        <a class="dropdown-item" href="/exam/create">Conduct Exam</a>
+                        <% } else{ %>
+                        <a class="dropdown-item" href="/attend-exam">Attend Exam</a>
+                        <% } %>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/user/logout">Logout</a>
+                    </div>
+                </li>
+                <% } else { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/register">Register</a>
+                </li>
+                <% }%>
+            </ul>
+        </div>
+    </div>
+</nav>
